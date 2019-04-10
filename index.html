@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 从接口获取数据
+    var xhr = null
+    if (window.XMLHttpRequest) {
+        xhr = new XMLHttpRequest()
+    }else {
+        xhr = new ActiveXObject("Microsoft.XMLHTTP")
+    }
+    xhr.open("get","./mock.json",true) //false 表示该次操作设置为同步操作  true表示该次操作为异步操作
+    // 当为false时，打印出来的是 4 200  为true时打印出来为 1 0
+    xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xhr.send();
+    // console.log(xhr.responseText)
+    // console.log(xhr.readyState,xhr.status)  //readyState 表示进行多少个过程 一般为4 表示载入完成
+//     readyState	
+//     存有 XMLHttpRequest 的状态。从 0 到 4 发生变化。
+
+//      0: 请求未初始化
+//      1: 服务器连接已建立
+//      2: 请求已接收
+//      3: 请求处理中
+//      4: 请求已完成，且响应已就绪
+// status	
+// 200: "OK"
+
+// 404: 未找到页面
+
+//    当为true异步请求的时候，要为xhr 提供回调函数
+   xhr.onreadystatechange = function(){
+       if(xhr.readyState == 4 && xhr.status == 200){
+        console.log(xhr.responseText)
+        console.log('666')    
+
+       }
+    //    js是单线程的，所以会出现异步请求
+    // 同步和异步的差别就在于这条流水线上各个流程的执行顺序不同。
+
+
+       //因为这段代码需要时间执行，所以肯定会异步，肯定会比下面的代码时间要多，所以打印出来的666会在上面这段代码之前。
+       //怎么解决呢？
+       //1.把console.log(666) 放在这个回调函数里 ，但不建议使用，因为回调函数多了会导致性能炸掉。所以我们要用ES6的方法
+       
+    
+    
+   }
+//    console.log('666')
+
+    </script>
+</body>
+<html>
